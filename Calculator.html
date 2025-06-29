@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+    <body>
+    <table border="1">   
+     <tr>
+         <td colspan="4">
+          <input type="text" id="inputBox" value="0"/>
+         </td>
+     </tr>
+     <tr>
+         <td onclick="digitalBtnPressed(7)">7</td>
+         <td onclick="digitalBtnPressed(8)">8</td>
+         <td onclick="digitalBtnPressed(9)">9</td>
+         <td onclick="opreatorBtnPressed('*')">x</td>
+     </tr>
+     <tr>
+         <td onclick="digitalBtnPressed(4)">4</td>
+         <td onclick="digitalBtnPressed(5)">5</td>
+         <td onclick="digitalBtnPressed(6)">6</td>
+         <td onclick="opreatorBtnPressed('-')">-</td>
+     </tr>
+     <tr>
+         <td onclick="digitalBtnPressed(1)">1</td>
+         <td onclick="digitalBtnPressed(2)">2</td>
+         <td onclick="digitalBtnPressed(3)">3</td>
+         <td onclick="opreatorBtnPressed('+')">+</td>
+     </tr>
+     <tr>
+         <td colspan="2" onclick="digitalBtnPressed(0)">0</td>
+
+         <td onclick="btnACPressed()">AC</td>
+         <td onclick="opreatorBtnPressed('/')">/</td>
+
+     </tr>
+     <tr>
+         <td colspan="4">=</td>
+     </tr>
+     </table>
+     
+     <script>
+    var newLine = true;
+    var value1 = null;
+    var currentOperator = null;
+
+    function digitalBtnPressed(button) {
+        var inputBox = document.getElementById("inputBox");
+        if (newLine) {
+            inputBox.value = button;
+            newLine = false;
+        } else {
+            inputBox.value += button;
+        }
+    }
+
+    function btnACPressed() {
+        document.getElementById("inputBox").value = "0";
+        value1 = null;
+        currentOperator = null;
+        newLine = true;
+    }
+
+    // Kept both spellings for compatibility with your HTML
+    function operatorBtnPressed(operator) {
+        value1 = parseFloat(document.getElementById("inputBox").value);
+        currentOperator = operator;
+        newLine = true;
+    }
+    function opreatorBtnPressed(operator) {
+        operatorBtnPressed(operator);
+    }
+
+    function equalBtnPressed() {
+        if (currentOperator && value1 !== null) {
+            var value2 = parseFloat(document.getElementById("inputBox").value);
+            var result; 
+            switch (currentOperator) {
+                case '+': result = value1 + value2; break;
+                case '-': result = value1 - value2; break;
+                case '*': result = value1 * value2; break;
+                case '/': result = value2 !== 0 ? value1 / value2 : "Error"; break;
+                default: result = value2;
+            }
+            document.getElementById("inputBox").value = result;
+            value1 = null;
+            currentOperator = null;
+            newLine = true;
+        }
+    }
+</script>
+    </body>
+</html>
